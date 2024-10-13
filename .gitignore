@@ -1,0 +1,9 @@
+venv/
+build/
+arkdp.egg-info/
+.eggs
+.pytest_cache
+ArknightsGameData_YoStar/
+misc/
+__pycache__
+dist/
