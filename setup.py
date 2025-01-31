@@ -8,6 +8,7 @@ setup(
     author="Meph1sto666",
 	install_requires=[],
 	setup_requires=['pytest-runner'],
-	tests_require=['pytest==4.4.1'],
+	tests_require=['pytest>=7.0'],
 	test_suite='tests',
+	python_requires=">=3.10.6"
 )
