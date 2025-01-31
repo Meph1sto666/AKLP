@@ -7,3 +7,5 @@ ArknightsGameData_YoStar/
 misc/
 __pycache__
 dist/
+tests/*.txt
+utils/instruction_dump.json
