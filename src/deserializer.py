@@ -1,8 +1,8 @@
 import re
 import typing
 from json import loads
-from .InstructionObjects import *
-from . import InstructionObjects as InstructionObjects
+from .instructions import *
+from . import instructions as instructions
 
 class Deserializer():
 	def __init__(self, file_path: str):
@@ -10,6 +10,7 @@ class Deserializer():
 		"""
 		self.file_path:str = file_path
 		self.instructions: typing.List[Instruction] = []
+		self.__is_deserialized: bool = False
 	
 	def deserialize(self) -> list[Instruction]:
 		"""
@@ -19,8 +20,11 @@ class Deserializer():
 			for line in file:
 				lp = LineParser(line)
 				self.instructions.append(lp.parse())
+		self.__is_deserialized = True
 		return self.instructions
-
+	
+	def is_deserialized(self) -> bool:
+		return self.__is_deserialized
 
 class LineParser():
 	def __init__(self, raw: str) -> None:
@@ -49,10 +53,10 @@ class LineParser():
 			args['text'] = text
 		self.args = args
 		if self.instruction_type == "name":
-			self.instruction_type = "Text"
+			self.instruction_type = "SpokenText"
 		if self.instruction_type == "":
-			self.instruction_type = "Text"
-		_class: typing.Any|None = getattr(InstructionObjects, self.instruction_type, None)
+			self.instruction_type = "RawText"
+		_class: typing.Any|None = getattr(instructions, self.instruction_type, None)
 		if _class is None:
 			print(self.__raw)
 			raise RuntimeError
