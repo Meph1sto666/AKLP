@@ -1,10 +1,12 @@
 from setuptools import find_packages, setup
 
 setup(
-    name="arkdp",
-    packages=find_packages(),
+    name="aklp",
+    # packages=find_packages(),
+	packages=find_packages(where="src"),
+    package_dir={"": "src"},
     version='0.0.2',
-    description="Python library to deserialize Arknights' game data",
+    description="Python library to deserialize Arknights' story data",
     author="Meph1sto666",
 	install_requires=[],
 	setup_requires=['pytest-runner'],

@@ -1,6 +1,8 @@
 import os
 from src.deserializer import Deserializer
 from src.instructions import *
+import pytest
+
 import json # type: ignore
 
 # o = open("out.txt", 'w', encoding="utf-8")
@@ -34,13 +36,15 @@ import json # type: ignore
 # 			"delay": i.time
 # 		})
 # json.dump(dta, o)
+# @pytest.Function
 
-o = open("./tests/out.txt", 'w', encoding="utf-8")
-for root, folder, files in os.walk("./ArknightsGameData_YoStar/en_US/gamedata/story"):
-	for f in files:
-		o.write(f+"\n")
-		if not f.endswith(".txt"): continue
-		d:Deserializer = Deserializer(root + "/" + f)
-		d.deserialize()
-		for i in d.instructions:
-			o.write(i.__str__()+"\n")
+def test_parse() -> None:
+	o = open("./tests/out.txt", 'w', encoding="utf-8")
+	for root, _, files in os.walk("./ArknightsGameData_YoStar/en_US/gamedata/story"):
+		for f in files:
+			o.write(f+"\n")
+			if not f.endswith(".txt"): continue
+			d:Deserializer = Deserializer(root + "/" + f)
+			d.deserialize()
+			for i in d.instructions:
+				o.write(i.__str__()+"\n")

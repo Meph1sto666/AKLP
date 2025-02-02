@@ -15,7 +15,6 @@ class Deserializer():
 	def deserialize(self) -> list[Instruction]:
 		"""
 		"""
-		print(self.file_path)
 		with open(self.file_path, "r", encoding="utf-8") as file:
 			for line in file:
 				lp = LineParser(line)
@@ -40,7 +39,7 @@ class LineParser():
 		text: str = self.line.replace(meta, "", 1).strip(' []\n')
 		args_list: typing.Iterator[re.Match[str]] = re.finditer(r"\w+(\s*)?=(\s*)?((\".+?\")|[^(,(\s*)?|(\s*)?,)\)\n\]]+)", meta)
 		try:
-			args:dict[str,float|int|str|None] = dict([[self.convert(c) for c in re.split(r"\s*=\s*", a.group(), 1)] for a in args_list]) # type: ignore
+			args:dict[str,float|int|str|None] = dict([[self.convert(c) for c in re.split(r"\s*=\s*", a.group(), maxsplit=1)] for a in args_list]) # type: ignore
 			e:float|int|str|None = args.pop('else', None)
 			if not e is None:
 				args["elseRename"] = e
